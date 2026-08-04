@@ -15,7 +15,10 @@ const config: Config = {
         surface: "#F8FAFC",
         primary: "#2563EB",
         secondary: "#10B981",
-        amber: "#F59E0B"
+        amber: "#F59E0B",
+        blue: "#2563EB",
+        purple: "#7C3AED",
+        cyan: "#06B6D4"
       },
       boxShadow: {
         soft: "0 18px 70px rgba(15, 23, 42, 0.08)",
