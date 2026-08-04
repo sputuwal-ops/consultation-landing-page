@@ -1,22 +1,25 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Footer } from "@/components/Footer";
-import { Navbar } from "@/components/Navbar";
-import { site } from "@/data/site";
 
 export const metadata: Metadata = {
   title: {
-    default: "Digital Saroz | AI Marketing Expert & Consultant",
+    default: "Digital Saroz | Free AI Marketing Consultation",
     template: "%s | Digital Saroz"
   },
-  description: "AI marketing consulting, automation, prompt engineering, SEO, and growth strategy for modern businesses.",
-  keywords: ["Digital Saroz", "AI marketing Nepal", "marketing automation", "AI consultant", "prompt engineering", "SEO consultant"],
-  authors: [{ name: site.name }],
+  description: "Book a free personalized AI marketing consultation and receive a customized digital marketing plan for your business.",
+  keywords: ["Digital Saroz", "AI marketing consultation", "AI marketing plan", "digital marketing for small business", "lead generation"],
+  authors: [{ name: "Digital Saroz" }],
   openGraph: {
-    title: "Digital Saroz | AI Marketing Expert & Consultant",
-    description: "Transform your business with AI-powered marketing systems.",
+    title: "Digital Saroz | Free AI Marketing Consultation",
+    description: "Get a customized AI marketing plan built specifically for your business.",
     type: "website",
-    locale: "en_US"
+    locale: "en_US",
+    siteName: "Digital Saroz"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Digital Saroz | Free AI Marketing Consultation",
+    description: "Get a customized AI marketing plan built specifically for your business."
   }
 };
 
@@ -24,9 +27,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body>
-        <Navbar />
         <main>{children}</main>
-        <Footer />
       </body>
     </html>
   );

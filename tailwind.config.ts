@@ -9,18 +9,21 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#111827",
-        muted: "#5B6475",
-        line: "#E7EAF0",
-        blue: "#4F7DF9",
-        purple: "#7C3AED",
-        cyan: "#06B6D4"
+        ink: "#0F172A",
+        muted: "#526173",
+        line: "#E2E8F0",
+        surface: "#F8FAFC",
+        primary: "#2563EB",
+        secondary: "#10B981",
+        amber: "#F59E0B"
       },
       boxShadow: {
-        soft: "0 18px 70px rgba(36, 56, 96, 0.10)",
-        glow: "0 20px 80px rgba(79, 125, 249, 0.20)"
+        soft: "0 18px 70px rgba(15, 23, 42, 0.08)",
+        glow: "0 20px 80px rgba(37, 99, 235, 0.20)",
+        form: "0 24px 90px rgba(15, 23, 42, 0.10)"
       },
       borderRadius: {
+        card: "1rem",
         "2xl": "1rem"
       }
     }
