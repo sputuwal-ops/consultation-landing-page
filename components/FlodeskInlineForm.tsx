@@ -63,10 +63,7 @@ export function FlodeskInlineForm() {
 
     function startSuccessObserver(root: Element) {
       const hasSucceeded = () => {
-        return (
-          root.getAttribute("data-ff-stage") === "success" ||
-          root.classList.contains("fd-has-success")
-        );
+        return root.getAttribute("data-ff-stage") === "success";
       };
 
       if (hasSucceeded()) {
