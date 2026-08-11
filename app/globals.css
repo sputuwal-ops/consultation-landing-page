@@ -120,6 +120,112 @@ body {
   box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1);
 }
 
+.flodesk-booking-card {
+  overflow: hidden;
+}
+
+.flodesk-booking-card [data-ff-el="root"].ff-6a7ab63cbf97bc60cfae6827 {
+  background: transparent;
+  color: #0f172a;
+  font-family: Inter, "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+.flodesk-booking-card [data-ff-el="root"].ff-6a7ab63cbf97bc60cfae6827 .ff-6a7ab63cbf97bc60cfae6827__container {
+  background: transparent;
+}
+
+.flodesk-booking-card [data-ff-el="root"].ff-6a7ab63cbf97bc60cfae6827 .ff-6a7ab63cbf97bc60cfae6827__wrapper {
+  max-width: none;
+}
+
+.flodesk-booking-card [data-ff-el="root"].ff-6a7ab63cbf97bc60cfae6827 .ff-6a7ab63cbf97bc60cfae6827__form {
+  padding: 0;
+}
+
+.flodesk-booking-card [data-ff-el="root"].ff-6a7ab63cbf97bc60cfae6827 .ff-6a7ab63cbf97bc60cfae6827__title,
+.flodesk-booking-card [data-ff-el="root"].ff-6a7ab63cbf97bc60cfae6827 .ff-6a7ab63cbf97bc60cfae6827__subtitle {
+  display: none;
+}
+
+.flodesk-booking-card [data-ff-el="root"].ff-6a7ab63cbf97bc60cfae6827 .ff-6a7ab63cbf97bc60cfae6827__fields {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .flodesk-booking-card [data-ff-el="root"].ff-6a7ab63cbf97bc60cfae6827 .ff-6a7ab63cbf97bc60cfae6827__fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .flodesk-booking-card [data-ff-el="root"].ff-6a7ab63cbf97bc60cfae6827 .ff-6a7ab63cbf97bc60cfae6827__field:last-of-type {
+    grid-column: span 2;
+  }
+}
+
+.flodesk-booking-card [data-ff-el="root"].ff-6a7ab63cbf97bc60cfae6827 .ff-6a7ab63cbf97bc60cfae6827__field {
+  margin: 0;
+}
+
+.flodesk-booking-card [data-ff-el="root"].ff-6a7ab63cbf97bc60cfae6827 .ff-6a7ab63cbf97bc60cfae6827__control {
+  min-height: 3.35rem;
+  border: 1px solid #dbe3ef;
+  border-radius: 0.95rem;
+  background: #ffffff;
+  color: #0f172a;
+  font-size: 1rem;
+  padding: 0.9rem 1rem;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.flodesk-booking-card [data-ff-el="root"].ff-6a7ab63cbf97bc60cfae6827 .ff-6a7ab63cbf97bc60cfae6827__control:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.flodesk-booking-card [data-ff-el="root"].ff-6a7ab63cbf97bc60cfae6827 .ff-6a7ab63cbf97bc60cfae6827__label {
+  color: #64748b;
+  font-family: Inter, "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 1.18rem 1rem 0;
+}
+
+.flodesk-booking-card [data-ff-el="root"].ff-6a7ab63cbf97bc60cfae6827 .ff-6a7ab63cbf97bc60cfae6827__footer {
+  margin-top: 1.5rem;
+}
+
+.flodesk-booking-card [data-ff-el="root"].ff-6a7ab63cbf97bc60cfae6827 .ff-6a7ab63cbf97bc60cfae6827__button {
+  min-height: 3.5rem;
+  width: 100%;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #2563eb, #10b981);
+  color: #ffffff;
+  font-family: Inter, "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 900;
+  line-height: 1;
+  padding: 1rem 1.4rem;
+  box-shadow: 0 20px 54px rgba(37, 99, 235, 0.24);
+  transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+}
+
+.flodesk-booking-card [data-ff-el="root"].ff-6a7ab63cbf97bc60cfae6827 .ff-6a7ab63cbf97bc60cfae6827__button:hover {
+  box-shadow: 0 24px 62px rgba(37, 99, 235, 0.3);
+  transform: translateY(-1px);
+}
+
+.flodesk-booking-card [data-ff-el="root"].ff-6a7ab63cbf97bc60cfae6827 .ff-6a7ab63cbf97bc60cfae6827__success-message {
+  border-radius: 1rem;
+  background: rgba(16, 185, 129, 0.1);
+  color: #0f172a;
+  font-family: Inter, "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 1.5rem;
+}
+
 .section-pad {
   padding: 5rem 0;
 }
