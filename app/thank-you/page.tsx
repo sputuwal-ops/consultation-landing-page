@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CheckCircle2, Mail, MessageCircle, PlayCircle } from "lucide-react";
+import { CheckCircle2, Mail, MessageCircle } from "lucide-react";
 import { Header } from "@/components/Header";
 
 export const metadata: Metadata = {
@@ -53,11 +53,15 @@ export default function ThankYouPage() {
             </p>
           </div>
 
-          <div className="mt-8 grid min-h-64 place-items-center rounded-card border border-dashed border-primary/30 bg-primary/5 text-center">
-            <div className="px-5">
-              <PlayCircle className="mx-auto h-14 w-14 text-primary" />
-              <p className="mt-4 text-lg font-black text-ink">Embed your video here.</p>
-            </div>
+          <div className="mt-8 overflow-hidden rounded-card border border-line bg-ink shadow-soft">
+            <iframe
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              className="aspect-video w-full"
+              referrerPolicy="strict-origin-when-cross-origin"
+              src="https://www.youtube.com/embed/qqyDfPeYFUo"
+              title="Before your consultation video"
+            />
           </div>
 
           <div className="mt-8 grid gap-5 md:grid-cols-2">
@@ -100,6 +104,7 @@ export default function ThankYouPage() {
             <MessageCircle className="h-5 w-5" />
             Chat With Us on WhatsApp
           </a>
+          <p className="mt-4 text-sm font-bold text-muted">WhatsApp: 9849579303</p>
           <p className="mx-auto mt-5 inline-flex items-center gap-2 rounded-full border border-line bg-white px-5 py-3 text-sm font-bold text-muted">
             <Mail className="h-4 w-4 text-secondary" />
             Check your email for your consultation details.
