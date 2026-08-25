@@ -1,6 +1,8 @@
-import { promises as fs } from "fs";
-import path from "path";
 import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
+import { site } from "@/data/site";
+
+export const runtime = "nodejs";
 
 type Payload = {
   name?: string;
@@ -21,22 +23,65 @@ function validate(payload: Payload) {
   return null;
 }
 
+function formatValue(value: string | undefined, fallback = "Not provided") {
+  const text = value?.trim();
+  return text ? text : fallback;
+}
+
+async function sendBookingEmail(payload: Payload) {
+  if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    throw new Error("Email service is not configured.");
+  }
+
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: Number(process.env.SMTP_PORT || 587),
+    secure: process.env.SMTP_SECURE === "true",
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS
+    }
+  });
+
+  const submittedAt = new Date().toISOString();
+  const fullName = formatValue(payload.name);
+  const subject = formatValue(payload.subject, "Free Consultation Request");
+
+  await transporter.sendMail({
+    from: process.env.SMTP_FROM || process.env.SMTP_USER,
+    to: process.env.CONTACT_TO || site.email,
+    replyTo: payload.email,
+    subject: `New Free Consultation Request - ${fullName}`,
+    text: [
+      "New consultation booking request",
+      "",
+      `Full Name: ${fullName}`,
+      `Email: ${formatValue(payload.email)}`,
+      `WhatsApp / Phone: ${formatValue(payload.phone)}`,
+      `Business Name: ${formatValue(payload.company)}`,
+      `Subject: ${subject}`,
+      "",
+      "Marketing / Sales Challenge:",
+      formatValue(payload.message),
+      "",
+      `Submitted At: ${submittedAt}`
+    ].join("\n")
+  });
+}
+
 export async function POST(request: Request) {
   const payload = (await request.json()) as Payload;
   const error = validate(payload);
   if (error) return NextResponse.json({ error }, { status: 400 });
 
-  const directory = path.join(process.cwd(), "bookings");
-  await fs.mkdir(directory, { recursive: true });
-  const file = path.join(directory, "booking-requests.json");
-  let existing: unknown[] = [];
   try {
-    existing = JSON.parse(await fs.readFile(file, "utf8"));
+    await sendBookingEmail(payload);
   } catch {
-    existing = [];
+    return NextResponse.json(
+      { error: "We could not send your consultation request right now. Please try again in a few minutes." },
+      { status: 502 }
+    );
   }
-  existing.push({ ...payload, type: "booking", createdAt: new Date().toISOString() });
-  await fs.writeFile(file, JSON.stringify(existing, null, 2));
 
   return NextResponse.json({ message: "Consultation request received. Digital Saroz will contact you soon." });
 }
