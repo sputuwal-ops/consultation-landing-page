@@ -28,7 +28,53 @@ function formatValue(value: string | undefined, fallback = "Not provided") {
   return text ? text : fallback;
 }
 
+function logEmailEnvironmentDiagnostics() {
+  const smtpPass = process.env.SMTP_PASS || "";
+
+  console.info("[booking-email] SMTP environment diagnostics", {
+    exists: {
+      SMTP_HOST: Boolean(process.env.SMTP_HOST),
+      SMTP_PORT: Boolean(process.env.SMTP_PORT),
+      SMTP_SECURE: Boolean(process.env.SMTP_SECURE),
+      SMTP_USER: Boolean(process.env.SMTP_USER),
+      SMTP_PASS: Boolean(process.env.SMTP_PASS),
+      SMTP_FROM: Boolean(process.env.SMTP_FROM),
+      CONTACT_TO: Boolean(process.env.CONTACT_TO)
+    },
+    SMTP_PORT: process.env.SMTP_PORT || "",
+    SMTP_SECURE: process.env.SMTP_SECURE || "",
+    SMTP_PASS_character_count: smtpPass.length,
+    SMTP_PASS_contains_whitespace: /\s/.test(smtpPass)
+  });
+}
+
+function logEmailError(error: unknown) {
+  if (!(error instanceof Error)) {
+    console.error("[booking-email] Nodemailer send failed", {
+      name: "UnknownError",
+      message: "Unknown email sending error"
+    });
+    return;
+  }
+
+  const diagnostic = error as Error & {
+    code?: unknown;
+    command?: unknown;
+    responseCode?: unknown;
+  };
+
+  console.error("[booking-email] Nodemailer send failed", {
+    name: diagnostic.name,
+    message: diagnostic.message,
+    code: diagnostic.code,
+    command: diagnostic.command,
+    responseCode: diagnostic.responseCode
+  });
+}
+
 async function sendBookingEmail(payload: Payload) {
+  logEmailEnvironmentDiagnostics();
+
   if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
     throw new Error("Email service is not configured.");
   }
@@ -76,7 +122,8 @@ export async function POST(request: Request) {
 
   try {
     await sendBookingEmail(payload);
-  } catch {
+  } catch (error) {
+    logEmailError(error);
     return NextResponse.json(
       { error: "We could not send your consultation request right now. Please try again in a few minutes." },
       { status: 502 }
