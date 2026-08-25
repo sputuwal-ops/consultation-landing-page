@@ -1,5 +1,4 @@
 import { LockKeyhole, MessageCircle } from "lucide-react";
-import { FlodeskInlineForm } from "@/components/FlodeskInlineForm";
 
 export function CTAForm() {
   return (
@@ -27,7 +26,9 @@ export function CTAForm() {
         </div>
 
         <div>
-          <FlodeskInlineForm />
+          <div className="rounded-card border border-line bg-white p-4 shadow-form sm:p-7">
+            <div className="min-h-64" aria-hidden="true" />
+          </div>
           <p className="mt-4 flex items-center justify-center gap-2 text-center text-sm font-medium text-muted">
             <LockKeyhole className="h-4 w-4 text-secondary" />
             We respect your privacy. No spam.
