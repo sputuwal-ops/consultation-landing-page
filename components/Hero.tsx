@@ -1,4 +1,4 @@
-import { ArrowDown, Sparkles } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 
 export function Hero() {
   return (
@@ -6,11 +6,7 @@ export function Hero() {
       <div className="hero-glow" />
       <div className="mesh-grid absolute inset-0 -z-10" />
       <div className="mx-auto max-w-5xl text-center">
-        <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white/80 px-4 py-2 text-sm font-semibold text-primary shadow-sm backdrop-blur">
-          <Sparkles className="h-4 w-4" />
-          Free AI Marketing Consultation
-        </div>
-        <h1 className="mx-auto mt-7 max-w-5xl text-balance text-4xl font-black leading-[1.04] text-ink sm:text-5xl md:text-7xl">
+        <h1 className="mx-auto mt-16 max-w-5xl text-balance text-4xl font-black leading-[1.04] text-ink sm:text-5xl md:mt-20 md:text-7xl">
           Get Your Free Personalized <span className="text-primary">AI Marketing Plan</span> to Generate More Leads and Sales
         </h1>
         <p className="mx-auto mt-6 max-w-3xl text-pretty text-lg leading-8 text-muted md:text-xl">

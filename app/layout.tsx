@@ -4,14 +4,14 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Digital Saroz | Free AI Marketing Consultation",
+    default: "Digital Saroz | AI Marketing Consultant",
     template: "%s | Digital Saroz"
   },
   description: "Book a free personalized AI marketing consultation and receive a customized digital marketing plan for your business.",
   keywords: ["Digital Saroz", "AI marketing consultation", "AI marketing plan", "digital marketing for small business", "lead generation"],
   authors: [{ name: "Digital Saroz" }],
   openGraph: {
-    title: "Digital Saroz | Free AI Marketing Consultation",
+    title: "Digital Saroz | AI Marketing Consultant",
     description: "Get a customized AI marketing plan built specifically for your business.",
     type: "website",
     locale: "en_US",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Digital Saroz | Free AI Marketing Consultation",
+    title: "Digital Saroz | AI Marketing Consultant",
     description: "Get a customized AI marketing plan built specifically for your business."
   }
 };
