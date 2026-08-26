@@ -28,30 +28,6 @@ function formatValue(value: string | undefined, fallback = "Not provided") {
   return text ? text : fallback;
 }
 
-function logEmailError(error: unknown) {
-  if (!(error instanceof Error)) {
-    console.error("[booking-email] Nodemailer send failed", {
-      name: "UnknownError",
-      message: "Unknown email sending error"
-    });
-    return;
-  }
-
-  const diagnostic = error as Error & {
-    code?: unknown;
-    command?: unknown;
-    responseCode?: unknown;
-  };
-
-  console.error("[booking-email] Nodemailer send failed", {
-    name: diagnostic.name,
-    message: diagnostic.message,
-    code: diagnostic.code,
-    command: diagnostic.command,
-    responseCode: diagnostic.responseCode
-  });
-}
-
 async function sendBookingEmail(payload: Payload) {
   if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
     throw new Error("Email service is not configured.");
@@ -100,8 +76,7 @@ export async function POST(request: Request) {
 
   try {
     await sendBookingEmail(payload);
-  } catch (error) {
-    logEmailError(error);
+  } catch {
     return NextResponse.json(
       { error: "We could not send your consultation request right now. Please try again in a few minutes." },
       { status: 502 }
