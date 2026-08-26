@@ -1,18 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LockKeyhole, MessageCircle, Send } from "lucide-react";
 
 type FormStatus = "idle" | "loading" | "error";
+type MetaPixelWindow = Window & {
+  fbq?: (eventType: "track", eventName: "Lead") => void;
+};
+
+function trackLeadConversion() {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  const fbq = (window as MetaPixelWindow).fbq;
+  if (typeof fbq === "function") {
+    fbq("track", "Lead");
+  }
+}
 
 export function CTAForm() {
   const router = useRouter();
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const isSubmittingRef = useRef(false);
+  const hasTrackedLeadRef = useRef(false);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (isSubmittingRef.current) {
+      return;
+    }
+
+    isSubmittingRef.current = true;
 
     const form = event.currentTarget;
     const formData = new FormData(form);
@@ -42,8 +64,16 @@ export function CTAForm() {
         throw new Error(payload.error || "Something went wrong. Please try again.");
       }
 
-      router.push("/thanks");
+      if (!hasTrackedLeadRef.current) {
+        hasTrackedLeadRef.current = true;
+        trackLeadConversion();
+      }
+
+      window.setTimeout(() => {
+        router.push("/thanks");
+      }, 150);
     } catch (error) {
+      isSubmittingRef.current = false;
       setStatus("error");
       setErrorMessage(error instanceof Error ? error.message : "Something went wrong. Please try again.");
     }
