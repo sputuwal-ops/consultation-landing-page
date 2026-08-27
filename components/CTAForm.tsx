@@ -1,84 +1,7 @@
-"use client";
-
-import { useRef, useState } from "react";
-import { useRouter } from "next/navigation";
-import { LockKeyhole, MessageCircle, Send } from "lucide-react";
-
-type FormStatus = "idle" | "loading" | "error";
-type MetaPixelWindow = Window & {
-  fbq?: (eventType: "track", eventName: "Lead") => void;
-};
-
-function trackLeadConversion() {
-  if (typeof window === "undefined") {
-    return;
-  }
-
-  const fbq = (window as MetaPixelWindow).fbq;
-  if (typeof fbq === "function") {
-    fbq("track", "Lead");
-  }
-}
+import { LockKeyhole, MessageCircle } from "lucide-react";
+import { FlodeskForm } from "@/components/FlodeskForm";
 
 export function CTAForm() {
-  const router = useRouter();
-  const [status, setStatus] = useState<FormStatus>("idle");
-  const [errorMessage, setErrorMessage] = useState("");
-  const isSubmittingRef = useRef(false);
-  const hasTrackedLeadRef = useRef(false);
-
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    if (isSubmittingRef.current) {
-      return;
-    }
-
-    isSubmittingRef.current = true;
-
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-
-    setStatus("loading");
-    setErrorMessage("");
-
-    try {
-      const response = await fetch("/api/booking", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          name: formData.get("name"),
-          email: formData.get("email"),
-          phone: formData.get("phone"),
-          company: formData.get("company"),
-          message: formData.get("message"),
-          subject: "Free Consultation Request"
-        })
-      });
-
-      const payload = await response.json();
-
-      if (!response.ok) {
-        throw new Error(payload.error || "Something went wrong. Please try again.");
-      }
-
-      if (!hasTrackedLeadRef.current) {
-        hasTrackedLeadRef.current = true;
-        trackLeadConversion();
-      }
-
-      window.setTimeout(() => {
-        router.push("/thanks");
-      }, 150);
-    } catch (error) {
-      isSubmittingRef.current = false;
-      setStatus("error");
-      setErrorMessage(error instanceof Error ? error.message : "Something went wrong. Please try again.");
-    }
-  }
-
   return (
     <section id="booking" className="section-pad scroll-mt-8 bg-booking px-5 lg:px-8">
       <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
@@ -104,43 +27,8 @@ export function CTAForm() {
         </div>
 
         <div>
-          <div className="rounded-card border border-line bg-white p-4 shadow-form sm:p-7">
-            <form onSubmit={handleSubmit}>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <label className="grid gap-2 text-sm font-bold text-ink">
-                  Full Name
-                  <input className="form-field" name="name" required type="text" />
-                </label>
-                <label className="grid gap-2 text-sm font-bold text-ink">
-                  Email Address
-                  <input className="form-field" name="email" required type="email" />
-                </label>
-                <label className="grid gap-2 text-sm font-bold text-ink">
-                  WhatsApp / Phone Number
-                  <input className="form-field" name="phone" required type="tel" />
-                </label>
-                <label className="grid gap-2 text-sm font-bold text-ink">
-                  Business Name
-                  <input className="form-field" name="company" type="text" />
-                </label>
-              </div>
-
-              <label className="mt-4 grid gap-2 text-sm font-bold text-ink">
-                What is your biggest marketing or sales challenge?
-                <textarea className="form-field min-h-36 resize-y" name="message" required />
-              </label>
-
-              {errorMessage ? (
-                <p className="mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">
-                  {errorMessage}
-                </p>
-              ) : null}
-
-              <button className="button-primary mt-5 w-full" disabled={status === "loading"} type="submit">
-                <Send className="h-5 w-5" />
-                {status === "loading" ? "Booking..." : "Book My Free Consultation"}
-              </button>
-            </form>
+          <div className="flodesk-card rounded-card border border-line bg-white p-4 shadow-form sm:p-7">
+            <FlodeskForm />
           </div>
           <p className="mt-4 flex items-center justify-center gap-2 text-center text-sm font-medium text-muted">
             <LockKeyhole className="h-4 w-4 text-secondary" />
